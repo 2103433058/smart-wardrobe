@@ -1,4 +1,5 @@
 import type { WardrobeItem } from '../../types';
+import { getSearchLinks } from '../../services/ecommerce';
 
 interface Props {
   item: WardrobeItem;
@@ -21,6 +22,11 @@ export function WardrobeCard({ item, onSelect }: Props) {
             style={{ backgroundColor: item.attributes.primaryColor }} />
           <span className="text-xs text-gray-400">{item.attributes.primaryColor}</span>
         </div>
+        <a href={getSearchLinks(item)[0].url} target="_blank" rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          className="block text-center text-xs text-indigo-600 py-1.5 border-t border-gray-50 mt-1">
+          🔗 搜同款
+        </a>
       </div>
     </div>
   );

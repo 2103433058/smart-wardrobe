@@ -6,6 +6,7 @@ import type { RecognitionResult } from '../../types';
 import { useWardrobeStore } from '../../stores/wardrobeStore';
 import { createThumbnail } from '../../utils/imageUtils';
 import { loadDetector, detectClothing, isDetectorReady } from '../../services/detector';
+import { AvatarCanvas } from '../avatar/AvatarCanvas';
 
 type InputMode = 'camera' | 'upload' | 'avatar';
 
@@ -72,9 +73,7 @@ export function CaptureTab() {
       {/* Input area */}
       {mode === 'camera' && <CameraCapture onCapture={handleImageCapture} />}
       {mode === 'upload' && <FileUpload onFiles={(urls) => urls.forEach(handleImageCapture)} />}
-      {mode === 'avatar' && (
-        <div className="text-center py-12 text-gray-400">虚拟试衣间 — 将在后续阶段实现</div>
-      )}
+      {mode === 'avatar' && <AvatarCanvas />}
 
       {/* Results */}
       {results.length > 0 && (

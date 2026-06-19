@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { AvatarSVG } from './AvatarSVG';
+import { Avatar3D } from './Avatar3D';
 import { AvatarControls } from './AvatarControls';
 import type { AvatarOutfit, WardrobeItem } from '../../types';
 import { useWardrobeStore } from '../../stores/wardrobeStore';
@@ -126,7 +126,7 @@ export function AvatarCanvas() {
     <div className="space-y-4">
       <div className="flex gap-3">
         <div className="w-[45%] avatar-svg-container">
-          <AvatarSVG outfit={outfit} skinColor="#fce4cc" hairColor="#4a3020" />
+          <Avatar3D outfit={outfit} />
         </div>
         <div className="flex-1 min-w-0">
           <AvatarControls outfit={outfit} onChange={setOutfit} />

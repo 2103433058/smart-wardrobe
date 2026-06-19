@@ -40,17 +40,18 @@ export function AvatarControls({ outfit, onChange }: Props) {
   const [activeSlot, setActiveSlot] = useState<ClothingSlot>('top');
 
   const updatePiece = (slot: ClothingSlot, updates: Partial<AvatarPiece>) => {
-    const current = outfit.pieces[slot] || { type: '', color: '#ccc', pattern: '纯色', size: 'M' };
+    const isShoes = slot === 'shoes';
+    const existing = outfit.pieces[slot] as Partial<AvatarPiece> | undefined;
+    const current = existing || { type: '', color: '#ccc', pattern: '纯色', size: 'M' };
     const updated = { ...current, ...updates };
-    // Clear conflicting slots
-    const pieces = { ...outfit.pieces, [slot]: updated };
-    if (slot === 'dress') {
-      delete pieces.top;
-      delete pieces.bottom;
-    }
-    if (slot === 'top' || slot === 'bottom') {
-      delete pieces.dress;
-    }
+    // Keep only relevant fields
+    const piece = isShoes
+      ? { type: updated.type || '', color: updated.color || '#ccc' }
+      : { type: updated.type || '', color: updated.color || '#ccc', pattern: updated.pattern || '纯色', size: updated.size || 'M' };
+    const pieces: AvatarOutfit['pieces'] = { ...outfit.pieces };
+    if (slot === 'dress') { delete pieces.top; delete pieces.bottom; }
+    if ((slot === 'top' || slot === 'bottom') && !isShoes) { delete (pieces as Record<string, unknown>).dress; }
+    (pieces as Record<string, unknown>)[slot] = piece;
     onChange({ ...outfit, pieces, id: outfit.id || 'draft' });
   };
 

@@ -9,7 +9,7 @@ export function WeightSliders({ weights, onChange }: Props) {
   };
 
   return (
-    <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 space-y-3">
+    <div className="bg-white rounded-2xl p-4 shadow-md border border-gray-100 space-y-3">
       <h3 className="text-sm font-semibold text-gray-700">权重调节</h3>
       {[
         ['体型匹配', 'body'],

@@ -52,7 +52,7 @@ export function CaptureTab() {
       <h1 className="text-xl font-bold">识别录入</h1>
 
       {/* Mode switcher */}
-      <div className="flex bg-gray-100 rounded-xl p-1">
+      <div className="flex bg-primary-50 rounded-2xl p-1">
         {([
           ['camera', '📷 拍照'],
           ['upload', '📁 上传'],
@@ -62,7 +62,7 @@ export function CaptureTab() {
             key={key}
             onClick={() => setMode(key)}
             className={`flex-1 py-2 text-sm font-medium rounded-lg transition-colors ${
-              mode === key ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-500'
+              mode === key ? 'bg-white text-primary-500 shadow-md' : 'text-gray-500'
             }`}
           >
             {label}

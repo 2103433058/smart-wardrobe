@@ -57,8 +57,8 @@ export function RecommendationList() {
           <button key={value} onClick={() => setOccasion(value)}
             className={`px-4 py-2 rounded-full text-sm whitespace-nowrap transition-colors ${
               occasion === value
-                ? 'bg-indigo-600 text-white'
-                : 'bg-white text-gray-600 border border-gray-200 hover:border-indigo-300'
+                ? 'bg-primary-500 text-white'
+                : 'bg-white text-gray-600 border border-gray-200 hover:border-primary-300'
             }`}>
             {label}
           </button>

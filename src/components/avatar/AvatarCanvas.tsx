@@ -67,7 +67,7 @@ export function AvatarCanvas() {
         </div>
       </div>
       <button onClick={handleSave}
-        className="w-full py-3 bg-indigo-600 text-white rounded-xl font-medium">
+        className="w-full py-3 bg-primary-500 text-white rounded-2xl font-medium">
         💾 保存到衣橱
       </button>
     </div>

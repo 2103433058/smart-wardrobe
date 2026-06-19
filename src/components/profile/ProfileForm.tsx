@@ -12,7 +12,7 @@ export function ProfileForm() {
   if (showQuiz) {
     return (
       <div>
-        <button onClick={() => setShowQuiz(false)} className="text-indigo-600 text-sm mb-4">
+        <button onClick={() => setShowQuiz(false)} className="text-primary-500 text-sm mb-4">
           ← 返回
         </button>
         <StyleQuiz onComplete={async (partial) => {
@@ -29,7 +29,7 @@ export function ProfileForm() {
       <h1 className="text-xl font-bold">用户画像</h1>
 
       {/* Body section */}
-      <section className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+      <section className="bg-white rounded-2xl p-4 shadow-md border border-gray-100">
         <h2 className="font-semibold mb-3">身体数据</h2>
         <div className="grid grid-cols-2 gap-3 text-sm">
           <div>
@@ -58,7 +58,7 @@ export function ProfileForm() {
       </section>
 
       {/* Color section */}
-      <section className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+      <section className="bg-white rounded-2xl p-4 shadow-md border border-gray-100">
         <h2 className="font-semibold mb-3">色彩属性</h2>
         <div className="grid grid-cols-2 gap-3 text-sm">
           <div>
@@ -81,24 +81,24 @@ export function ProfileForm() {
       </section>
 
       {/* Style section */}
-      <section className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+      <section className="bg-white rounded-2xl p-4 shadow-md border border-gray-100">
         <h2 className="font-semibold mb-3">风格偏好</h2>
         {hasProfile ? (
           <div className="text-sm space-y-2">
-            <p>主风格: <span className="font-medium text-indigo-600">{profile.styleProfile.primaryStyle}</span></p>
+            <p>主风格: <span className="font-medium text-primary-500">{profile.styleProfile.primaryStyle}</span></p>
             <p>辅风格: <span className="font-medium text-gray-600">{profile.styleProfile.secondaryStyle}</span></p>
           </div>
         ) : (
           <p className="text-sm text-gray-400">尚未测试</p>
         )}
         <button onClick={() => setShowQuiz(true)}
-          className="mt-3 text-sm text-indigo-600 font-medium">
+          className="mt-3 text-sm text-primary-500 font-medium">
           {hasProfile ? '🔄 重新测试' : '📝 开始风格测试'}
         </button>
       </section>
 
       {/* Lifestyle section */}
-      <section className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+      <section className="bg-white rounded-2xl p-4 shadow-md border border-gray-100">
         <h2 className="font-semibold mb-3">场合与预算</h2>
         <div className="grid grid-cols-2 gap-3 text-sm">
           <div>

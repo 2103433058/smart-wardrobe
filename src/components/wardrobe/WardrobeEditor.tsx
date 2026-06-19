@@ -29,7 +29,7 @@ export function WardrobeEditor({ item, onClose }: Props) {
       <div className="bg-white rounded-t-2xl sm:rounded-2xl w-full sm:max-w-md max-h-[80vh] overflow-y-auto p-6"
         onClick={(e) => e.stopPropagation()}>
         <div className="flex gap-4 mb-6">
-          <img src={item.imageDataUrl} alt={item.category} className="w-24 h-24 object-cover rounded-xl" />
+          <img src={item.imageDataUrl} alt={item.category} className="w-24 h-24 object-cover rounded-2xl" />
           <div>
             <input value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}
               className="text-lg font-semibold border-b border-gray-200 pb-1 w-full outline-none" />
@@ -90,10 +90,10 @@ export function WardrobeEditor({ item, onClose }: Props) {
         </div>
 
         <div className="flex gap-3 mt-6">
-          <button onClick={handleDelete} className="flex-1 py-2.5 bg-red-50 text-red-600 rounded-xl font-medium text-sm">
+          <button onClick={handleDelete} className="flex-1 py-2.5 bg-red-50 text-red-600 rounded-2xl font-medium text-sm">
             🗑 删除
           </button>
-          <button onClick={handleSave} className="flex-1 py-2.5 bg-indigo-600 text-white rounded-xl font-medium text-sm">
+          <button onClick={handleSave} className="flex-1 py-2.5 bg-primary-500 text-white rounded-2xl font-medium text-sm">
             💾 保存
           </button>
         </div>

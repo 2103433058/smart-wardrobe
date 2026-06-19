@@ -10,9 +10,9 @@ export function WardrobeCard({ item, onSelect }: Props) {
   return (
     <div
       onClick={() => onSelect(item)}
-      className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
+      className="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
     >
-      <div className="aspect-square bg-gray-50">
+      <div className="aspect-square bg-warm-50">
         <img src={item.thumbnailDataUrl} alt={item.category} className="w-full h-full object-cover" />
       </div>
       <div className="p-2">
@@ -24,7 +24,7 @@ export function WardrobeCard({ item, onSelect }: Props) {
         </div>
         <a href={getSearchLinks(item)[0].url} target="_blank" rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
-          className="block text-center text-xs text-indigo-600 py-1.5 border-t border-gray-50 mt-1">
+          className="block text-center text-xs text-primary-500 py-1.5 border-t border-gray-50 mt-1">
           🔗 搜同款
         </a>
       </div>

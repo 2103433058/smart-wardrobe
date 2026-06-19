@@ -40,7 +40,7 @@ export function StyleQuiz({ onComplete }: Props) {
       {/* Progress */}
       <div className="flex items-center gap-2">
         <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
-          <div className="h-full bg-indigo-600 rounded-full transition-all"
+          <div className="h-full bg-primary-500 rounded-full transition-all"
             style={{ width: `${((step + 1) / QUIZ_QUESTIONS.length) * 100}%` }} />
         </div>
         <span className="text-xs text-gray-400">{step + 1}/{QUIZ_QUESTIONS.length}</span>
@@ -56,9 +56,9 @@ export function StyleQuiz({ onComplete }: Props) {
           <button
             key={opt.value}
             onClick={() => setAnswer(opt.value)}
-            className={`w-full text-left px-4 py-3 rounded-xl border transition-colors ${
+            className={`w-full text-left px-4 py-3 rounded-2xl border transition-colors ${
               isSelected(opt.value)
-                ? 'border-indigo-500 bg-indigo-50 text-indigo-700'
+                ? 'border-primary-400 bg-primary-50 text-primary-600'
                 : 'border-gray-200 hover:border-gray-300 text-gray-700'
             }`}
           >
@@ -71,7 +71,7 @@ export function StyleQuiz({ onComplete }: Props) {
       <button
         onClick={handleNext}
         disabled={isMulti ? (currentAnswer as string[]).length === 0 : !currentAnswer}
-        className="w-full py-3 bg-indigo-600 text-white rounded-xl font-medium disabled:opacity-50"
+        className="w-full py-3 bg-primary-500 text-white rounded-2xl font-medium disabled:opacity-50"
       >
         {step < QUIZ_QUESTIONS.length - 1 ? '下一题' : '完成测试'}
       </button>

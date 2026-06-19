@@ -27,8 +27,8 @@ export function FileUpload({ onFiles }: Props) {
 
   return (
     <div
-      className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-colors
-        ${isDragging ? 'border-indigo-500 bg-indigo-50' : 'border-gray-300 hover:border-gray-400'}`}
+      className={`border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-colors
+        ${isDragging ? 'border-primary-400 bg-primary-50' : 'border-gray-300 hover:border-gray-400'}`}
       onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
       onDragLeave={() => setIsDragging(false)}
       onDrop={(e) => { e.preventDefault(); setIsDragging(false); processFiles(e.dataTransfer.files); }}

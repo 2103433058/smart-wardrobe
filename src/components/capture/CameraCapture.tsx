@@ -51,7 +51,7 @@ export function CameraCapture({ onCapture }: Props) {
     return (
       <div className="text-center py-12">
         <p className="text-red-500 mb-4">{error}</p>
-        <button onClick={startCamera} className="px-4 py-2 bg-indigo-600 text-white rounded-lg">
+        <button onClick={startCamera} className="px-4 py-2 bg-primary-500 text-white rounded-lg">
           重试
         </button>
       </div>
@@ -60,7 +60,7 @@ export function CameraCapture({ onCapture }: Props) {
 
   return (
     <div className="space-y-4">
-      <div className="relative bg-black rounded-xl overflow-hidden aspect-[3/4]">
+      <div className="relative bg-black rounded-2xl overflow-hidden aspect-[3/4]">
         <video ref={videoRef} className="w-full h-full object-cover" playsInline muted />
         {!ready && (
           <div className="absolute inset-0 flex items-center justify-center text-white">
@@ -71,7 +71,7 @@ export function CameraCapture({ onCapture }: Props) {
       <button
         onClick={handleCapture}
         disabled={!ready}
-        className="w-full py-3 bg-indigo-600 text-white rounded-xl font-medium disabled:opacity-50"
+        className="w-full py-3 bg-primary-500 text-white rounded-2xl font-medium disabled:opacity-50"
       >
         📸 拍照识别
       </button>

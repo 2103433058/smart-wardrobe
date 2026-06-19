@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary-50: #fdf2f7;
+  --color-primary-100: #fce7f1;
+  --color-primary-200: #fbcfe4;
+  --color-primary-300: #f9a8c9;
+  --color-primary-400: #f4729e;
+  --color-primary-500: #ec4884;
+  --color-primary-600: #db2777;
+  --color-primary-700: #be185d;
+  --color-primary-800: #9d174d;
+  --color-primary-900: #831843;
+  --color-warm-50: #fefcf8;
+  --color-warm-100: #fdf6ed;
+  --color-warm-200: #faeed9;
+}
+
+body {
+  font-family: 'Quicksand', 'Noto Sans SC', sans-serif;
+  background: linear-gradient(180deg, #fefcf8 0%, #fdf2f7 100%);
+  min-height: 100vh;
+}

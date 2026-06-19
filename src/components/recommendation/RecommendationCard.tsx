@@ -10,7 +10,7 @@ export function RecommendationCard({ combo }: Props) {
   const scorePercent = (matchResult.totalScore * 100).toFixed(0);
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+    <div className="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
       <div className="flex items-center justify-between p-4 pb-2">
         <span className="text-sm font-semibold text-gray-700">
           综合评分
@@ -25,7 +25,7 @@ export function RecommendationCard({ combo }: Props) {
       {/* Clothing preview */}
       <div className="flex gap-2 px-4 pb-3">
         {items.map((item) => (
-          <div key={item.id} className="w-16 h-16 rounded-lg overflow-hidden bg-gray-50 border">
+          <div key={item.id} className="w-16 h-16 rounded-lg overflow-hidden bg-warm-50 border">
             <img src={item.thumbnailDataUrl} alt={item.category} className="w-full h-full object-cover" />
           </div>
         ))}
@@ -62,7 +62,7 @@ export function RecommendationCard({ combo }: Props) {
           return (
             <a key={item.id} href={`https://s.taobao.com/search?q=${encodeURIComponent(q)}`}
               target="_blank" rel="noopener noreferrer"
-              className="flex-1 py-2.5 text-center text-gray-600 hover:bg-gray-50">
+              className="flex-1 py-2.5 text-center text-gray-600 hover:bg-warm-50">
               🔗 搜「{item.category}」
             </a>
           );

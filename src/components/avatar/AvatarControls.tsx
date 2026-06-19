@@ -45,7 +45,7 @@ export function AvatarControls({ outfit, onChange }: Props) {
                   key={item}
                   onClick={() => updatePiece(slot as 'top' | 'bottom' | 'dress' | 'outer', { type: item })}
                   className={`px-3 py-1 rounded-full text-xs border transition-colors ${
-                    isActive ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-gray-600 border-gray-200 hover:border-indigo-300'
+                    isActive ? 'bg-primary-500 text-white border-primary-500' : 'bg-white text-gray-600 border-gray-200 hover:border-primary-300'
                   }`}
                 >
                   {item}
@@ -62,7 +62,7 @@ export function AvatarControls({ outfit, onChange }: Props) {
         <div className="flex flex-wrap gap-1 mt-1">
           {COLORS.map((c) => (
             <button key={c} onClick={() => updatePiece('top', { color: c })}
-              className="px-3 py-1 rounded-full text-xs border border-gray-200 bg-white hover:border-indigo-300">
+              className="px-3 py-1 rounded-full text-xs border border-gray-200 bg-white hover:border-primary-300">
               {c}
             </button>
           ))}
@@ -75,7 +75,7 @@ export function AvatarControls({ outfit, onChange }: Props) {
         <div className="flex gap-1 mt-1">
           {PATTERNS.map((p) => (
             <button key={p} onClick={() => updatePiece('top', { pattern: p })}
-              className="px-3 py-1 rounded-full text-xs border border-gray-200 bg-white hover:border-indigo-300">
+              className="px-3 py-1 rounded-full text-xs border border-gray-200 bg-white hover:border-primary-300">
               {p}
             </button>
           ))}
@@ -88,7 +88,7 @@ export function AvatarControls({ outfit, onChange }: Props) {
         <div className="flex gap-1 mt-1">
           {SIZES.map((s) => (
             <button key={s} onClick={() => updatePiece('top', { size: s })}
-              className="px-3 py-1 rounded-full text-xs border border-gray-200 bg-white hover:border-indigo-300">
+              className="px-3 py-1 rounded-full text-xs border border-gray-200 bg-white hover:border-primary-300">
               {s}
             </button>
           ))}
@@ -111,7 +111,7 @@ export function AvatarControls({ outfit, onChange }: Props) {
                   onChange({ ...outfit, pieces: { ...outfit.pieces, accessories: next } });
                 }}
                 className={`px-3 py-1 rounded-full text-xs border transition-colors ${
-                  has ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-gray-600 border-gray-200 hover:border-indigo-300'
+                  has ? 'bg-primary-500 text-white border-primary-500' : 'bg-white text-gray-600 border-gray-200 hover:border-primary-300'
                 }`}
               >
                 {a}

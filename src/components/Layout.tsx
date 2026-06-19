@@ -3,7 +3,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 const tabs = [
   { path: '/capture', label: '📷 识别录入' },
   { path: '/wardrobe', label: '👗 衣橱管理' },
-  { path: '/recommend', label: '✨ 搭配推荐' },
+  { path: '/recommendation', label: '✨ 搭配推荐' },
   { path: '/profile', label: '👤 用户画像' },
 ];
 

@@ -13,15 +13,24 @@ type InputMode = 'camera' | 'upload' | 'avatar';
 export function CaptureTab() {
   const [mode, setMode] = useState<InputMode>('camera');
   const [results, setResults] = useState<Array<{ result: RecognitionResult; imageUrl: string }>>([]);
-  const [_detectorLoading, setDetectorLoading] = useState(true);
+  const [detectorLoading, setDetectorLoading] = useState(true);
+  const [detectorError, setDetectorError] = useState('');
   const addItem = useWardrobeStore((s) => s.addItem);
 
   useEffect(() => {
-    loadDetector().then(() => setDetectorLoading(false));
+    loadDetector()
+      .then(() => setDetectorLoading(false))
+      .catch((e) => {
+        setDetectorError('AI 模型加载失败: ' + (e?.message || '网络错误'));
+        setDetectorLoading(false);
+      });
   }, []);
 
   const handleImageCapture = useCallback(async (dataUrl: string) => {
-    if (!isDetectorReady()) return;
+    if (!isDetectorReady()) {
+      alert('AI 模型尚未加载完成，请稍后再试');
+      return;
+    }
     const result = await detectClothing(dataUrl);
     if (result) {
       setResults((prev) => [...prev, { result, imageUrl: dataUrl }]);
@@ -50,6 +59,18 @@ export function CaptureTab() {
   return (
     <div className="space-y-4">
       <h1 className="text-xl font-bold">识别录入</h1>
+
+      {/* Detector status */}
+      {detectorLoading && (
+        <div className="bg-primary-50 text-primary-600 px-4 py-2 rounded-2xl text-sm">
+          ⏳ AI 模型加载中，请稍候...
+        </div>
+      )}
+      {detectorError && (
+        <div className="bg-red-50 text-red-600 px-4 py-2 rounded-2xl text-sm">
+          ❌ {detectorError}
+        </div>
+      )}
 
       {/* Mode switcher */}
       <div className="flex bg-primary-50 rounded-2xl p-1">

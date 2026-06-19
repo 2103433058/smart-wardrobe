@@ -1,6 +1,6 @@
 interface Props {
-  weights: { body: number; color: number; style: number; occasion: number };
-  onChange: (weights: { body: number; color: number; style: number; occasion: number }) => void;
+  weights: { body: number; color: number; style: number; occasion: number; dressBonus: number };
+  onChange: (weights: { body: number; color: number; style: number; occasion: number; dressBonus: number }) => void;
 }
 
 export function WeightSliders({ weights, onChange }: Props) {

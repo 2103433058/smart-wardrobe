@@ -6,7 +6,7 @@ import { detectPattern } from './patternDetector';
 let model: cocoSsd.ObjectDetection | null = null;
 
 const CLOTHING_CLASSES = new Set([
-  'person', 'backpack', 'handbag', 'tie', 'suitcase',
+  'person', 'backpack', 'handbag', 'tie', 'suitcase', 'umbrella',
 ]);
 
 const CATEGORY_MAP: Record<string, string> = {
@@ -15,6 +15,7 @@ const CATEGORY_MAP: Record<string, string> = {
   handbag: '手提包',
   tie: '领带',
   suitcase: '行李箱',
+  umbrella: '伞',
 };
 
 export async function loadDetector(): Promise<void> {
@@ -73,12 +74,23 @@ function loadImageForTF(dataUrl: string): Promise<HTMLImageElement> {
   });
 }
 
-function inferSeason(_color: string): string {
+function inferSeason(color: string): string {
+  const warmColors = ['红', '橙', '黄', '粉', '驼', '金'];
+  const coolColors = ['蓝', '绿', '黑', '灰', '银', '白'];
+  if (warmColors.some((c) => color.includes(c))) return '春夏';
+  if (coolColors.some((c) => color.includes(c))) return '秋冬';
   return '四季';
 }
 
 function inferFormality(category: string): string {
-  const map: Record<string, string> = { tie: '正装', backpack: '休闲' };
+  const map: Record<string, string> = {
+    tie: '正装',
+    suitcase: '正装',
+    backpack: '休闲',
+    handbag: '休闲',
+    umbrella: '休闲',
+    person: '休闲',
+  };
   return map[category] || '休闲';
 }
 
@@ -86,6 +98,10 @@ function inferStyleTags(category: string, _attrs: ClothingAttributes): StyleLabe
   const map: Record<string, StyleLabel[]> = {
     tie: ['elegant'],
     backpack: ['sporty'],
+    handbag: ['elegant'],
+    suitcase: ['minimalist'],
+    umbrella: ['minimalist'],
+    person: ['minimalist'],
   };
   return map[category] || ['minimalist'];
 }

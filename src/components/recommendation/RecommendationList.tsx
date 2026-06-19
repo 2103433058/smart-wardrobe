@@ -19,7 +19,7 @@ export function RecommendationList() {
   const { items, loadItems } = useWardrobeStore();
   const { profile, loadProfile, hasProfile } = useProfileStore();
   const [occasion, setOccasion] = useState<Occasion>('casual');
-  const [weights, setWeights] = useState({ body: 0.30, color: 0.25, style: 0.25, occasion: 0.20 });
+  const [weights, setWeights] = useState({ body: 0.30, color: 0.25, style: 0.25, occasion: 0.20, dressBonus: 0.05 });
 
   useEffect(() => { loadItems(); loadProfile(); }, [loadItems, loadProfile]);
 

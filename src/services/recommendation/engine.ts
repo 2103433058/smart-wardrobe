@@ -10,9 +10,10 @@ interface Weights {
   color: number;
   style: number;
   occasion: number;
+  dressBonus: number;
 }
 
-const DEFAULT_WEIGHTS: Weights = { body: 0.30, color: 0.25, style: 0.25, occasion: 0.20 };
+const DEFAULT_WEIGHTS: Weights = { body: 0.30, color: 0.25, style: 0.25, occasion: 0.20, dressBonus: 0.05 };
 
 export function generateRecommendations(
   profile: UserProfile,
@@ -48,7 +49,7 @@ export function generateRecommendations(
     const combo = [dress];
     const result = scoreCombo(profile, combo, occasion, weights);
     // Dresses get a slight bonus for being a complete outfit
-    result.totalScore = Math.min(1, result.totalScore + 0.05);
+    result.totalScore = Math.min(1, result.totalScore + weights.dressBonus);
     combos.push({
       id: `combo-${dress.id}`,
       items: combo,
@@ -96,10 +97,10 @@ function scoreCombo(
     occasionScore,
     totalScore: Math.max(0, Math.min(1, totalScore)),
     analysis: {
-      body: bodyResults[0]?.notes || '',
-      color: colorResults[0]?.notes || '',
-      style: styleResults[0]?.notes || '',
-      occasion: occasionResults[0]?.notes || '',
+      body: combineNotes(bodyResults.map((r) => r.notes)),
+      color: combineNotes(colorResults.map((r) => r.notes)),
+      style: combineNotes(styleResults.map((r) => r.notes)),
+      occasion: combineNotes(occasionResults.map((r) => r.notes)),
       suggestions: generateSuggestions(bodyScore, colorScore, styleScore, occasionScore, combo),
     },
   };
@@ -107,6 +108,12 @@ function scoreCombo(
 
 function avg(arr: number[]): number {
   return arr.length === 0 ? 0 : arr.reduce((a, b) => a + b, 0) / arr.length;
+}
+
+/** Combine unique notes from multiple items, joined by Chinese semicolon. */
+function combineNotes(notes: string[]): string {
+  const unique = [...new Set(notes.filter(Boolean))];
+  return unique.join('；');
 }
 
 function generateSuggestions(

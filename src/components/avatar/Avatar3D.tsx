@@ -72,27 +72,30 @@ export function Avatar3D({ outfit }: { outfit: AvatarOutfit }) {
     });
     ro.observe(container);
 
-    // Load GLB
-    new GLTFLoader().load('/model.glb',
+    // Load GLB with correct base path for GitHub Pages
+    const modelUrl = import.meta.env.BASE_URL + 'model.glb';
+    new GLTFLoader().load(modelUrl,
       (gltf) => {
         scene.add(gltf.scene);
         modelRef.current = gltf.scene;
-
-        // Collect all meshes for clothing recoloring
         const meshes: THREE.Mesh[] = [];
         gltf.scene.traverse((child) => {
-          if (child instanceof THREE.Mesh) {
-            meshes.push(child);
-            child.castShadow = true;
-          }
+          if (child instanceof THREE.Mesh) meshes.push(child);
         });
         clothingMeshes.current = meshes;
         setLoaded(true);
       },
-      undefined,
+      (progress) => {
+        if (progress.total > 0) {
+          const pct = Math.round((progress.loaded / progress.total) * 100);
+          // Update loading text
+          const el = container.querySelector('.load-pct');
+          if (el) el.textContent = pct + '%';
+        }
+      },
       (err) => {
-        console.error('GLB load error:', err);
-        setLoadErr('模型加载失败');
+        console.error('Model load error:', err);
+        setLoadErr('3D模型加载失败');
       }
     );
 
@@ -145,8 +148,9 @@ export function Avatar3D({ outfit }: { outfit: AvatarOutfit }) {
       style={{ aspectRatio: '1/2', minHeight: 380, maxHeight: 500 }}
     >
       {!loaded && !loadErr && (
-        <div className="absolute inset-0 flex items-center justify-center bg-warm-50 text-gray-400 text-sm">
-          ⏳ 模型加载中...
+        <div className="absolute inset-0 flex items-center justify-center bg-warm-50 text-gray-400 text-sm flex-col gap-2">
+          <div className="text-2xl animate-pulse">⏳</div>
+          <span>模型加载中 <span className="load-pct" /></span>
         </div>
       )}
       {loadErr && (

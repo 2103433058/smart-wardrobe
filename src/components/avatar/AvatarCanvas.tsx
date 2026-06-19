@@ -1,10 +1,19 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, Component } from 'react';
 import { Avatar3D } from './Avatar3D';
 import { AvatarControls } from './AvatarControls';
 import type { AvatarOutfit, WardrobeItem } from '../../types';
 import { useWardrobeStore } from '../../stores/wardrobeStore';
 import { scoreColorPair } from '../../services/recommendation/colorMatcher';
 import { scoreStylePair } from '../../services/recommendation/styleMatcher';
+
+class AvatarErrorBoundary extends Component<{ children: React.ReactNode }, { err: string }> {
+  state = { err: '' };
+  static getDerivedStateFromError(e: Error) { return { err: e.message }; }
+  render() {
+    if (this.state.err) return <div className="text-center py-8 text-red-400 text-sm">❌ 3D渲染出错: {this.state.err}</div>;
+    return this.props.children;
+  }
+}
 
 export function AvatarCanvas() {
   const [outfit, setOutfit] = useState<AvatarOutfit>({
@@ -126,7 +135,7 @@ export function AvatarCanvas() {
     <div className="space-y-4">
       <div className="flex gap-3">
         <div className="w-[45%] avatar-svg-container">
-          <Avatar3D outfit={outfit} />
+          <AvatarErrorBoundary><Avatar3D outfit={outfit} /></AvatarErrorBoundary>
         </div>
         <div className="flex-1 min-w-0">
           <AvatarControls outfit={outfit} onChange={setOutfit} />

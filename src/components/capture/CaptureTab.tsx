@@ -1,35 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { CameraCapture } from './CameraCapture';
 import { FileUpload } from './FileUpload';
 import { ResultCard } from './ResultCard';
 import type { RecognitionResult } from '../../types';
 import { useWardrobeStore } from '../../stores/wardrobeStore';
 import { createThumbnail } from '../../utils/imageUtils';
+import { loadDetector, detectClothing, isDetectorReady } from '../../services/detector';
 
 type InputMode = 'camera' | 'upload' | 'avatar';
 
 export function CaptureTab() {
   const [mode, setMode] = useState<InputMode>('camera');
   const [results, setResults] = useState<Array<{ result: RecognitionResult; imageUrl: string }>>([]);
+  const [detectorLoading, setDetectorLoading] = useState(true);
   const addItem = useWardrobeStore((s) => s.addItem);
 
-  const handleImageCapture = async (dataUrl: string) => {
-    // Phase 5 will replace this mock with real TF.js detection
-    const mockResult: RecognitionResult = {
-      category: 'T恤',
-      confidence: 0.92,
-      attributes: {
-        primaryColor: '白色',
-        secondaryColor: undefined,
-        pattern: '纯色',
-        material: '棉',
-        season: '春夏',
-        formality: '休闲',
-      },
-      styleTags: ['minimalist'],
-    };
-    setResults((prev) => [...prev, { result: mockResult, imageUrl: dataUrl }]);
-  };
+  useEffect(() => {
+    loadDetector().then(() => setDetectorLoading(false));
+  }, []);
+
+  const handleImageCapture = useCallback(async (dataUrl: string) => {
+    if (!isDetectorReady()) return;
+    const result = await detectClothing(dataUrl);
+    if (result) {
+      setResults((prev) => [...prev, { result, imageUrl: dataUrl }]);
+    }
+  }, []);
 
   const handleSave = async (imageUrl: string, result: RecognitionResult) => {
     const thumb = await createThumbnail(imageUrl);

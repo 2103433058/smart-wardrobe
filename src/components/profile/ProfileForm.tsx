@@ -37,11 +37,11 @@ export function ProfileForm() {
             <select value={profile.body.shape}
               onChange={(e) => setProfile({ ...profile, body: { ...profile.body, shape: e.target.value as any } })}
               className="w-full border rounded-lg px-3 py-2 mt-1">
-              <option value="rectangle">矩形</option>
-              <option value="hourglass">沙漏</option>
-              <option value="pear">梨形</option>
-              <option value="apple">苹果</option>
-              <option value="inverted-triangle">倒三角</option>
+              <option value="rectangle">矩形(H型) 肩腰髋等宽</option>
+              <option value="hourglass">沙漏(X型) 肩髋等宽腰细</option>
+              <option value="pear">梨形(A型) 髋宽于肩</option>
+              <option value="apple">苹果(O型) 腰腹丰满</option>
+              <option value="inverted-triangle">倒三角(Y型) 肩宽于髋</option>
             </select>
           </div>
           <div>
@@ -60,16 +60,27 @@ export function ProfileForm() {
       {/* Color section */}
       <section className="bg-white rounded-2xl p-4 shadow-md border border-gray-100">
         <h2 className="font-semibold mb-3">色彩属性</h2>
-        <div className="grid grid-cols-2 gap-3 text-sm">
+        <div className="space-y-3">
           <div>
             <label className="text-gray-500 text-xs">肤色基调</label>
-            <select value={profile.color.skinTone}
-              onChange={(e) => setProfile({ ...profile, color: { ...profile.color, skinTone: e.target.value as any } })}
-              className="w-full border rounded-lg px-3 py-2 mt-1">
-              <option value="warm">暖色调</option>
-              <option value="cool">冷色调</option>
-              <option value="neutral">中性色调</option>
-            </select>
+            <div className="flex gap-2 mt-1">
+              {([
+                { v: 'warm', l: '暖色调', h: '#e8b88a', d: '适合大地色、橙色、金色' },
+                { v: 'cool', l: '冷色调', h: '#f0d0c0', d: '适合蓝色、紫色、玫红' },
+                { v: 'neutral', l: '中性调', h: '#e8c8a8', d: '冷暖皆可，柔和中间色' },
+              ] as const).map(({ v, l, h, d }) => (
+                <button key={v}
+                  onClick={() => setProfile({ ...profile, color: { ...profile.color, skinTone: v } })}
+                  className={`flex-1 p-3 rounded-xl border-2 text-center transition-colors ${
+                    profile.color.skinTone === v ? 'border-primary-500 bg-primary-50' : 'border-gray-200 hover:border-primary-200'
+                  }`}
+                >
+                  <div className="w-8 h-8 rounded-full mx-auto mb-1" style={{ backgroundColor: h, border: '2px solid #ddd' }} />
+                  <div className="text-xs font-medium">{l}</div>
+                  <div className="text-xs text-gray-400 mt-0.5">{d}</div>
+                </button>
+              ))}
+            </div>
           </div>
           <div>
             <label className="text-gray-500 text-xs">发色</label>

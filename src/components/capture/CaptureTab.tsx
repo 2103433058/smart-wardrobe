@@ -1,13 +1,14 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, lazy, Suspense } from 'react';
 import { CameraCapture } from './CameraCapture';
 import { FileUpload } from './FileUpload';
 import { ResultCard } from './ResultCard';
-import { AvatarCanvas } from '../avatar/AvatarCanvas';
 import type { RecognitionResult, ClothingAttributes, StyleLabel } from '../../types';
 import { useWardrobeStore } from '../../stores/wardrobeStore';
 import { createThumbnail } from '../../utils/imageUtils';
 import { analyzeColors } from '../../services/colorAnalyzer';
 import { detectPattern } from '../../services/patternDetector';
+
+const AvatarCanvas = lazy(() => import('../avatar/AvatarCanvas').then(m => ({ default: m.AvatarCanvas })));
 
 type InputMode = 'camera' | 'upload' | 'avatar';
 
@@ -158,7 +159,16 @@ export function CaptureTab() {
       {/* Input area */}
       {mode === 'camera' && <CameraCapture onCapture={handleImageCapture} />}
       {mode === 'upload' && <FileUpload onFiles={(urls) => urls.forEach(handleImageCapture)} />}
-      {mode === 'avatar' && <AvatarCanvas />}
+      {mode === 'avatar' && (
+                <Suspense fallback={
+                  <div className="text-center py-12 text-gray-400">
+                    <div className="text-4xl mb-2 animate-pulse">🎨</div>
+                    <p>加载虚拟试衣间...</p>
+                  </div>
+                }>
+                  <AvatarCanvas />
+                </Suspense>
+              )}
 
       {/* Category picker after image capture */}
       {pendingImage && (

@@ -48,17 +48,13 @@ export function AvatarCanvas() {
   }, [outfit, items]);
 
   const handleSave = () => {
-    const svg = document.querySelector('.fashion-figure-svg svg') as unknown as SVGElement;
-    if (!svg) return;
-    const data = new XMLSerializer().serializeToString(svg);
-    const c = document.createElement('canvas'); c.width = 220; c.height = 440;
-    const img = new Image();
-    img.onload = async () => {
-      c.getContext('2d')!.drawImage(img, 0, 0);
-      const url = c.toDataURL('image/png');
+    // Try canvas first (3D), fallback to SVG (2D)
+    const canvas3d = document.querySelector('.avatar-3d-container canvas') as HTMLCanvasElement | null;
+    if (canvas3d) {
+      const url = canvas3d.toDataURL('image/png');
       const tc = document.createElement('canvas'); tc.width = 60; tc.height = 120;
-      tc.getContext('2d')!.drawImage(img, 0, 0, 60, 120);
-      await addItem({
+      tc.getContext('2d')!.drawImage(canvas3d, 0, 0, 60, 120);
+      addItem({
         id: Date.now().toString(36)+Math.random().toString(36).slice(2,8),
         imageDataUrl: url, thumbnailDataUrl: tc.toDataURL('image/png'), source: 'avatar',
         category: outfit.pieces.top?.type || outfit.pieces.dress?.type || '虚拟试衣',
@@ -67,9 +63,9 @@ export function AvatarCanvas() {
           pattern: outfit.pieces.top?.pattern || '纯色', material: '', season: '', formality: '',
         },
         styleTags: [], tags: [], notes: '', createdAt: Date.now(), wearCount: 0, isFavorite: false,
-      });
-    };
-    img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(data)));
+      }).catch(() => {});
+      return;
+    }
   };
 
   const hasOutfit = !!(outfit.pieces.top || outfit.pieces.bottom || outfit.pieces.dress);

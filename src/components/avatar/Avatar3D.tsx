@@ -117,7 +117,7 @@ export function Avatar3D({ outfit }: { outfit: AvatarOutfit }) {
 
   return (
     <div ref={containerRef}
-      className="w-full rounded-2xl overflow-hidden cursor-grab active:cursor-grabbing select-none relative bg-[#fff8f3]"
+      className="avatar-3d-container w-full rounded-2xl overflow-hidden cursor-grab active:cursor-grabbing select-none relative bg-[#fff8f3]"
       style={{ aspectRatio: '1/2', minHeight: 380, maxHeight: 500 }}
     >
       {status === 'loading' && (

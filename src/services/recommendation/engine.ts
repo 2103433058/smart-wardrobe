@@ -2,7 +2,7 @@ import type { Occasion, WardrobeItem, OutfitCombo, MatchResult } from '../../typ
 import type { UserProfile } from '../../types';
 import { scoreBodyMatch } from './bodyMatcher';
 import { scoreColorMatch, scoreColorPair } from './colorMatcher';
-import { scoreStyleMatch, scoreStylePair } from './styleMatcher';
+import { scoreStyleMatch } from './styleMatcher';
 import { scoreOccasionMatch } from './occasionMatcher';
 
 interface Weights {
@@ -27,7 +27,6 @@ export function generateRecommendations(
   const tops = items.filter((i) => ['T恤', '衬衫', '卫衣', '针织衫', '吊带'].includes(i.category));
   const bottoms = items.filter((i) => ['牛仔裤', '西裤', '短裤', 'A字裙'].includes(i.category));
   const dresses = items.filter((i) => ['连衣裙', '连体裤'].includes(i.category));
-  const outers = items.filter((i) => ['夹克', '大衣', '开衫'].includes(i.category));
 
   const combos: OutfitCombo[] = [];
 

@@ -4,7 +4,7 @@ import { useProfileStore } from '../../stores/profileStore';
 import { RecommendationCard } from './RecommendationCard';
 import { WeightSliders } from './WeightSliders';
 import { generateRecommendations } from '../../services/recommendation/engine';
-import type { Occasion, OutfitCombo } from '../../types';
+import type { Occasion } from '../../types';
 
 const OCCASIONS: { value: Occasion; label: string }[] = [
   { value: 'commute', label: '🏢 通勤上班' },

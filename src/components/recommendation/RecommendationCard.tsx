@@ -8,6 +8,12 @@ interface Props {
 export function RecommendationCard({ combo }: Props) {
   const { matchResult, items } = combo;
   const scorePercent = (matchResult.totalScore * 100).toFixed(0);
+  const scoreRows: Array<[string, number]> = [
+    ['体型', matchResult.bodyScore],
+    ['色彩', matchResult.colorScore],
+    ['风格', matchResult.styleScore],
+    ['场合', matchResult.occasionScore],
+  ];
 
   return (
     <div className="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
@@ -34,12 +40,7 @@ export function RecommendationCard({ combo }: Props) {
       {/* Score breakdown */}
       <div className="px-4 pb-3">
         <div className="grid grid-cols-4 gap-2 text-center text-xs">
-          {[
-            ['体型', matchResult.bodyScore],
-            ['色彩', matchResult.colorScore],
-            ['风格', matchResult.styleScore],
-            ['场合', matchResult.occasionScore],
-          ].map(([label, score]) => (
+          {scoreRows.map(([label, score]) => (
             <div key={label}>
               <div className="text-gray-400 mb-0.5">{label}</div>
               <div className="font-medium">{(score * 100).toFixed(0)}</div>

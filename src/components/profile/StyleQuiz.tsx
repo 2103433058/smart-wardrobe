@@ -81,7 +81,6 @@ export function StyleQuiz({ onComplete }: Props) {
 
 function buildProfile(answers: Record<number, string | string[]>): Partial<UserProfile> {
   const q1 = answers[1] as string || 'rectangle';
-  const q4 = answers[4] as string || 'minimalist';
   const q11 = answers[11] as string || 'neutral';
   const q15 = answers[15] as string || 'mid';
   const q8 = answers[8] as string || 'minimal';

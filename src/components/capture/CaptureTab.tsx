@@ -13,7 +13,7 @@ type InputMode = 'camera' | 'upload' | 'avatar';
 export function CaptureTab() {
   const [mode, setMode] = useState<InputMode>('camera');
   const [results, setResults] = useState<Array<{ result: RecognitionResult; imageUrl: string }>>([]);
-  const [detectorLoading, setDetectorLoading] = useState(true);
+  const [_detectorLoading, setDetectorLoading] = useState(true);
   const addItem = useWardrobeStore((s) => s.addItem);
 
   useEffect(() => {

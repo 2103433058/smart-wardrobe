@@ -19,7 +19,7 @@ export function Avatar3D({ outfit }: { outfit: AvatarOutfit }) {
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
+    if (!container || container.children.length > 0) return;
 
     const W = 220; const H = 440;
     const scene = new THREE.Scene();
@@ -30,7 +30,6 @@ export function Avatar3D({ outfit }: { outfit: AvatarOutfit }) {
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(W, H);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    container.innerHTML = '';
     container.appendChild(renderer.domElement);
 
     scene.add(new THREE.AmbientLight(0xffffff, 0.7));

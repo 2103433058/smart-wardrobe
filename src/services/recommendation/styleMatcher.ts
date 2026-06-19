@@ -3,11 +3,15 @@ import type { UserProfile, WardrobeItem, StyleLabel } from '../../types';
 // Adjacency: which styles can mix
 const STYLE_COMPAT: Record<StyleLabel, StyleLabel[]> = {
   minimalist: ['elegant', 'tomboy', 'sporty'],
-  sweet: ['elegant'],
-  tomboy: ['minimalist', 'street'],
-  street: ['sporty', 'tomboy'],
-  elegant: ['minimalist', 'sweet'],
+  sweet: ['elegant', 'vintage', 'bohemian'],
+  tomboy: ['minimalist', 'street', 'avant-garde'],
+  street: ['sporty', 'tomboy', 'avant-garde'],
+  elegant: ['minimalist', 'sweet', 'luxury'],
   sporty: ['minimalist', 'street'],
+  bohemian: ['sweet', 'vintage', 'street'],
+  vintage: ['sweet', 'bohemian', 'elegant'],
+  luxury: ['elegant', 'minimalist', 'avant-garde'],
+  'avant-garde': ['street', 'tomboy', 'luxury'],
 };
 
 export function scoreStyleMatch(profile: UserProfile, item: WardrobeItem): { score: number; notes: string } {

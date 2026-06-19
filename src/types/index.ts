@@ -7,7 +7,13 @@ export type FitPreference = 'loose' | 'regular' | 'slim' | 'oversized';
 export type AccessoryLevel = 'none' | 'minimal' | 'moderate' | 'statement';
 export type ItemSource = 'camera' | 'upload' | 'avatar';
 export type Occasion = 'commute' | 'date' | 'travel' | 'sports' | 'formal' | 'casual';
-export type StyleLabel = 'minimalist' | 'sweet' | 'tomboy' | 'street' | 'elegant' | 'sporty';
+export type StyleLabel = 'minimalist' | 'sweet' | 'tomboy' | 'street' | 'elegant' | 'sporty' | 'bohemian' | 'vintage' | 'luxury' | 'avant-garde';
+
+export const STYLE_LABEL_CN: Record<StyleLabel, string> = {
+  minimalist: '简约', sweet: '甜美', tomboy: '帅气', street: '街头',
+  elegant: '优雅', sporty: '活力', bohemian: '波西米亚', vintage: '复古',
+  luxury: '轻奢', 'avant-garde': '前卫',
+};
 
 // ========== Clothing Attributes ==========
 export interface ClothingAttributes {

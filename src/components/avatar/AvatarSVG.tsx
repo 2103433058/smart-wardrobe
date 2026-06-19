@@ -115,13 +115,13 @@ function TopPiece({ top }: { top: { type: string; color: string; pattern: string
       return (
         <g>
           <path d="M58,100 Q55,105 58,175 L60,200 L140,200 L142,175 Q145,105 142,100 Q100,88 58,100 Z"
-            fill={fill} stroke={c} strokeWidth="1" />
+            fill={fill} stroke={c} strokeWidth="2" />
           <path d="M58,105 Q38,108 35,155 Q33,170 40,172 L52,170 Q48,125 58,112 Z"
-            fill={fill} stroke={c} strokeWidth="1" />
+            fill={fill} stroke={c} strokeWidth="2" />
           <path d="M142,105 Q162,108 165,155 Q167,170 160,172 L148,170 Q152,125 142,112 Z"
-            fill={fill} stroke={c} strokeWidth="1" />
+            fill={fill} stroke={c} strokeWidth="2" />
           {/* Collar */}
-          <path d="M75,100 L85,120 L100,112 L115,120 L125,100" fill="#fff" stroke={c} strokeWidth="1" />
+          <path d="M75,100 L85,120 L100,112 L115,120 L125,100" fill="#fff" stroke={c} strokeWidth="2" />
           {/* Buttons */}
           {[125, 140, 155].map((y, i) => (
             <circle key={i} cx="100" cy={y} r="1.5" fill="#fff" stroke={c} strokeWidth="0.5" />
@@ -132,11 +132,11 @@ function TopPiece({ top }: { top: { type: string; color: string; pattern: string
       return (
         <g>
           <path d="M54,95 Q50,100 55,175 L56,200 L144,200 L145,175 Q150,100 146,95 Q100,82 54,95 Z"
-            fill={fill} stroke={c} strokeWidth="1" />
+            fill={fill} stroke={c} strokeWidth="2" />
           <path d="M54,100 Q30,102 28,155 Q26,172 34,175 L50,173 Q44,125 54,108 Z"
-            fill={fill} stroke={c} strokeWidth="1" />
+            fill={fill} stroke={c} strokeWidth="2" />
           <path d="M146,100 Q170,102 172,155 Q174,172 166,175 L150,173 Q156,125 146,108 Z"
-            fill={fill} stroke={c} strokeWidth="1" />
+            fill={fill} stroke={c} strokeWidth="2" />
           {/* Hood */}
           <path d="M72,95 Q70,78 100,72 Q130,78 128,95" fill={fill} stroke={c} strokeWidth="2" />
           {/* Kangaroo pocket */}
@@ -147,11 +147,11 @@ function TopPiece({ top }: { top: { type: string; color: string; pattern: string
       return (
         <g>
           <path d="M56,98 Q52,104 56,175 L58,200 L142,200 L144,175 Q148,104 144,98 Q100,86 56,98 Z"
-            fill={fill} stroke={c} strokeWidth="1" />
+            fill={fill} stroke={c} strokeWidth="2" />
           <path d="M56,102 Q34,106 30,160 Q28,178 36,180 L52,178 Q46,130 56,112 Z"
-            fill={fill} stroke={c} strokeWidth="1" />
+            fill={fill} stroke={c} strokeWidth="2" />
           <path d="M144,102 Q166,106 170,160 Q172,178 164,180 L148,178 Q154,130 144,112 Z"
-            fill={fill} stroke={c} strokeWidth="1" />
+            fill={fill} stroke={c} strokeWidth="2" />
           {/* Ribbed neckline */}
           <path d="M75,98 Q100,105 125,98" fill="none" stroke={c} strokeWidth="4" opacity="0.8" />
           {/* Texture lines */}
@@ -164,12 +164,12 @@ function TopPiece({ top }: { top: { type: string; color: string; pattern: string
       return (
         <g>
           <path d="M60,100 Q56,105 60,175 L62,200 L138,200 L140,175 Q144,105 140,100 Q100,90 60,100 Z"
-            fill={fill} stroke={c} strokeWidth="1" />
+            fill={fill} stroke={c} strokeWidth="2" />
           {/* Short sleeves */}
           <path d="M60,105 Q42,107 40,140 Q38,152 45,155 L55,153 Q52,125 60,112 Z"
-            fill={fill} stroke={c} strokeWidth="1" />
+            fill={fill} stroke={c} strokeWidth="2" />
           <path d="M140,105 Q158,107 160,140 Q162,152 155,155 L145,153 Q148,125 140,112 Z"
-            fill={fill} stroke={c} strokeWidth="1" />
+            fill={fill} stroke={c} strokeWidth="2" />
           {/* Round neckline */}
           <path d="M78,100 Q100,110 122,100" fill="none" stroke={c} strokeWidth="2" />
         </g>
@@ -187,7 +187,7 @@ function BottomPiece({ bottom }: { bottom: { type: string; color: string; patter
       return (
         <g>
           <path d="M62,215 L55,300 L72,300 L78,260 L82,260 L82,300 L118,300 L118,260 L122,260 L128,300 L145,300 L138,215 Z"
-            fill={fill} stroke={c} strokeWidth="1" />
+            fill={fill} stroke={c} strokeWidth="2" />
           {/* Hem lines */}
           <line x1="60" y1="295" x2="75" y2="295" stroke={c} strokeWidth="1.5" />
           <line x1="125" y1="295" x2="140" y2="295" stroke={c} strokeWidth="1.5" />
@@ -197,7 +197,7 @@ function BottomPiece({ bottom }: { bottom: { type: string; color: string; patter
       return (
         <g>
           <path d="M62,210 L48,340 Q46,355 55,355 L60,355 L70,355 L75,355 L80,355 L85,355 L100,355 L115,355 L120,355 L125,355 L130,355 L140,355 L145,355 Q154,355 152,340 L138,210 Z"
-            fill={fill} stroke={c} strokeWidth="1" />
+            fill={fill} stroke={c} strokeWidth="2" />
           {/* Pleats */}
           {[72, 88, 104, 120, 136].map((x, i) => (
             <line key={i} x1={x} y1={220} x2={x - 10} y2={350} stroke={c} strokeWidth="0.5" opacity="0.4" />
@@ -208,7 +208,7 @@ function BottomPiece({ bottom }: { bottom: { type: string; color: string; patter
       return (
         <g>
           <path d="M62,210 L54,310 Q52,318 58,318 L68,318 Q74,318 74,310 L74,260 L76,260 L85,260 L85,390 L80,390 Q75,390 75,382 L70,310 L68,310 L70,240 L130,240 L132,310 L130,310 L125,382 Q125,390 120,390 L115,390 L115,260 L124,260 L126,260 L126,310 Q126,318 132,318 L142,318 Q148,318 146,310 L138,210 Z"
-            fill={fill} stroke={c} strokeWidth="1" />
+            fill={fill} stroke={c} strokeWidth="2" />
           {/* Center crease */}
           <line x1="100" y1="260" x2="100" y2="390" stroke={c} strokeWidth="0.5" opacity="0.3" />
         </g>
@@ -217,7 +217,7 @@ function BottomPiece({ bottom }: { bottom: { type: string; color: string; patter
       return (
         <g>
           <path d="M62,210 L58,310 Q56,320 62,320 L72,320 Q78,320 78,310 L78,260 L80,260 L85,260 L85,390 L80,390 Q75,390 75,382 L72,310 L70,310 L70,240 L130,240 L130,310 L128,310 L125,382 Q125,390 120,390 L115,390 L115,260 L120,260 L122,260 L122,310 Q122,320 128,320 L138,320 Q144,320 142,310 L138,210 Z"
-            fill={fill} stroke={c} strokeWidth="1" />
+            fill={fill} stroke={c} strokeWidth="2" />
           {/* Pocket outlines */}
           <path d="M68,225 L68,245 Q68,250 73,250 L78,250" fill="none" stroke="#d4a574" strokeWidth="1" opacity="0.5" />
           <path d="M132,225 L132,245 Q132,250 127,250 L122,250" fill="none" stroke="#d4a574" strokeWidth="1" opacity="0.5" />
@@ -236,11 +236,11 @@ function DressPiece({ dress }: { dress: { type: string; color: string; pattern: 
       return (
         <g>
           <path d="M55,100 L50,250 Q48,262 55,262 L65,262 Q72,262 72,252 L72,260 L76,390 L85,390 L85,260 L115,260 L115,390 L124,390 L128,260 L128,252 Q128,262 135,262 L145,262 Q152,262 150,250 L145,100 Q100,88 55,100 Z"
-            fill={fill} stroke={c} strokeWidth="1" />
+            fill={fill} stroke={c} strokeWidth="2" />
           <path d="M55,105 Q38,108 35,155 Q33,168 40,170 L52,168 Q48,125 55,115 Z"
-            fill={fill} stroke={c} strokeWidth="1" />
+            fill={fill} stroke={c} strokeWidth="2" />
           <path d="M145,105 Q162,108 165,155 Q167,168 160,170 L148,168 Q152,125 145,115 Z"
-            fill={fill} stroke={c} strokeWidth="1" />
+            fill={fill} stroke={c} strokeWidth="2" />
           <path d="M80,100 Q100,110 120,100" fill="none" stroke={c} strokeWidth="2" />
           {/* Waist belt */}
           <line x1="58" y1="185" x2="142" y2="185" stroke={c} strokeWidth="3" opacity="0.6" />
@@ -250,11 +250,11 @@ function DressPiece({ dress }: { dress: { type: string; color: string; pattern: 
       return (
         <g>
           <path d="M55,100 L48,280 Q46,300 100,305 Q154,300 152,280 L145,100 Q100,88 55,100 Z"
-            fill={fill} stroke={c} strokeWidth="1" />
+            fill={fill} stroke={c} strokeWidth="2" />
           <path d="M55,105 Q38,108 35,155 Q33,168 40,170 L52,168 Q48,125 55,115 Z"
-            fill={fill} stroke={c} strokeWidth="1" />
+            fill={fill} stroke={c} strokeWidth="2" />
           <path d="M145,105 Q162,108 165,155 Q167,168 160,170 L148,168 Q152,125 145,115 Z"
-            fill={fill} stroke={c} strokeWidth="1" />
+            fill={fill} stroke={c} strokeWidth="2" />
           {/* Sweetheart neckline */}
           <path d="M78,100 Q90,115 100,108 Q110,115 122,100" fill="none" stroke={c} strokeWidth="2.5" />
           {/* Waist */}

@@ -8,6 +8,14 @@ interface Props {
 
 export function ResultCard({ result, imageUrl, onSave }: Props) {
   const { category, confidence, attributes, styleTags } = result;
+
+  const handleSearch = () => {
+    const query = [attributes.primaryColor, attributes.pattern, category]
+      .filter((p) => p && p !== '纯色' && p !== '未知')
+      .join(' ')
+      .trim();
+    window.open(`https://s.taobao.com/search?q=${encodeURIComponent(query)}`, '_blank');
+  };
   return (
     <div className="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
       <div className="flex gap-4 p-4">
@@ -41,7 +49,7 @@ export function ResultCard({ result, imageUrl, onSave }: Props) {
         <button onClick={onSave} className="flex-1 py-3 text-primary-500 font-medium text-sm hover:bg-primary-50">
           💾 保存到衣橱
         </button>
-        <button className="flex-1 py-3 text-gray-600 font-medium text-sm hover:bg-warm-50 border-l border-gray-100">
+        <button onClick={handleSearch} className="flex-1 py-3 text-gray-600 font-medium text-sm hover:bg-warm-50 border-l border-gray-100">
           🔗 搜同款
         </button>
       </div>

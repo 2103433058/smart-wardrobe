@@ -1,19 +1,10 @@
-import { useState, useMemo, Component } from 'react';
+import { useState, useMemo } from 'react';
 import { Avatar3D } from './Avatar3D';
 import { AvatarControls } from './AvatarControls';
 import type { AvatarOutfit, WardrobeItem } from '../../types';
 import { useWardrobeStore } from '../../stores/wardrobeStore';
 import { scoreColorPair } from '../../services/recommendation/colorMatcher';
 import { scoreStylePair } from '../../services/recommendation/styleMatcher';
-
-class ErrBoundary extends Component<{ children: React.ReactNode }, { e: string }> {
-  state = { e: '' };
-  static getDerivedStateFromError(err: Error) { return { e: err.message }; }
-  render() {
-    if (this.state.e) return <div className="text-center py-8 text-red-400 text-sm">❌ {this.state.e}</div>;
-    return this.props.children;
-  }
-}
 
 export function AvatarCanvas() {
   const [outfit, setOutfit] = useState<AvatarOutfit>({
@@ -23,68 +14,62 @@ export function AvatarCanvas() {
   const addItem = useWardrobeStore((s) => s.addItem);
 
   const recommendations = useMemo(() => {
-    const results: Array<{ item: WardrobeItem; score: number; reason: string }> = [];
-    if (!items.length) return results;
+    const r: Array<{ item: WardrobeItem; score: number; reason: string }> = [];
+    if (!items.length) return r;
     const sel = outfit.pieces;
     try {
-      if (sel.top?.color) {
-        for (const b of items.filter(i => ['牛仔裤','西裤','短裤','A字裙'].includes(i.category))) {
-          const s = scoreColorPair(sel.top.color, b.attributes?.primaryColor || '') * 0.5 +
-            scoreStylePair(getStyle(sel.top.type), b.styleTags || []) * 0.5;
-          if (s > 0.5) results.push({ item: b, score: s,
-            reason: s >= 0.9 ? '完美搭配' : s >= 0.75 ? '推荐搭配' : '可选搭配' });
-        }
+      if (sel.top?.color) for (const b of items.filter(i=>['牛仔裤','西裤','短裤','A字裙'].includes(i.category))) {
+        const sc = scoreColorPair(sel.top.color,b.attributes?.primaryColor||'')*.5 + scoreStylePair(gS(sel.top.type),b.styleTags||[])*.5;
+        if (sc>.5) r.push({item:b,score:sc,reason:sc>=.9?'完美':sc>=.75?'推荐':'可选'});
       }
-      if (sel.bottom?.color) {
-        for (const t of items.filter(i => ['T恤','衬衫','卫衣','针织衫','吊带'].includes(i.category))) {
-          const s = scoreColorPair(sel.bottom.color, t.attributes?.primaryColor || '') * 0.5 +
-            scoreStylePair(getStyle(sel.bottom.type), t.styleTags || []) * 0.5;
-          if (s > 0.5) results.push({ item: t, score: s,
-            reason: s >= 0.9 ? '完美搭配' : s >= 0.75 ? '推荐搭配' : '可选搭配' });
-        }
+      if (sel.bottom?.color) for (const t of items.filter(i=>['T恤','衬衫','卫衣','针织衫','吊带'].includes(i.category))) {
+        const sc = scoreColorPair(sel.bottom.color,t.attributes?.primaryColor||'')*.5 + scoreStylePair(gS(sel.bottom.type),t.styleTags||[])*.5;
+        if (sc>.5) r.push({item:t,score:sc,reason:sc>=.9?'完美':sc>=.75?'推荐':'可选'});
       }
-    } catch { /* ignore matcher errors */ }
-    return results.sort((a, b) => b.score - a.score).slice(0, 4);
+    } catch {}
+    return r.sort((a,b)=>b.score-a.score).slice(0,4);
   }, [outfit, items]);
 
   const handleSave = () => {
-    // Try canvas first (3D), fallback to SVG (2D)
-    const canvas3d = document.querySelector('.avatar-3d-container canvas') as HTMLCanvasElement | null;
-    if (canvas3d) {
-      const url = canvas3d.toDataURL('image/png');
-      const tc = document.createElement('canvas'); tc.width = 60; tc.height = 120;
-      tc.getContext('2d')!.drawImage(canvas3d, 0, 0, 60, 120);
+    const svg = document.querySelector('.avatar-svg-root svg');
+    if (!svg) return;
+    const data = new XMLSerializer().serializeToString(svg);
+    const c = document.createElement('canvas'); c.width=220; c.height=440;
+    const img = new Image();
+    img.onload = () => {
+      c.getContext('2d')!.drawImage(img,0,0);
+      const u = c.toDataURL('image/png');
+      const tc = document.createElement('canvas'); tc.width=60; tc.height=120;
+      tc.getContext('2d')!.drawImage(img,0,0,60,120);
       addItem({
         id: Date.now().toString(36)+Math.random().toString(36).slice(2,8),
-        imageDataUrl: url, thumbnailDataUrl: tc.toDataURL('image/png'), source: 'avatar',
+        imageDataUrl: u, thumbnailDataUrl: tc.toDataURL('image/png'), source: 'avatar',
         category: outfit.pieces.top?.type || outfit.pieces.dress?.type || '虚拟试衣',
-        attributes: {
-          primaryColor: outfit.pieces.top?.color || outfit.pieces.dress?.color || '未知',
-          pattern: outfit.pieces.top?.pattern || '纯色', material: '', season: '', formality: '',
-        },
+        attributes: { primaryColor: outfit.pieces.top?.color || outfit.pieces.dress?.color || '未知',
+          pattern: outfit.pieces.top?.pattern || '纯色', material: '', season: '', formality: '' },
         styleTags: [], tags: [], notes: '', createdAt: Date.now(), wearCount: 0, isFavorite: false,
-      }).catch(() => {});
-      return;
-    }
+      });
+    };
+    img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(data)));
   };
 
-  const hasOutfit = !!(outfit.pieces.top || outfit.pieces.bottom || outfit.pieces.dress);
+  const hasO = !!(outfit.pieces.top || outfit.pieces.bottom || outfit.pieces.dress);
 
   return (
     <div className="space-y-4">
       <div className="flex gap-3">
-        <div className="w-[45%] bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
-          <ErrBoundary><Avatar3D outfit={outfit} /></ErrBoundary>
+        <div className="w-[45%] avatar-svg-root bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden p-2">
+          <Avatar3D outfit={outfit} />
         </div>
         <div className="flex-1 min-w-0">
           <AvatarControls outfit={outfit} onChange={setOutfit} />
         </div>
       </div>
-      <button onClick={handleSave}
+      <button type="button" onClick={handleSave}
         className="w-full py-3 bg-primary-500 text-white rounded-2xl font-medium">
         💾 保存到衣橱
       </button>
-      {hasOutfit && recommendations.length > 0 && (
+      {hasO && recommendations.length > 0 && (
         <div className="bg-white rounded-2xl shadow-md border border-primary-100 p-4 space-y-3">
           <div className="flex items-center gap-2"><span>✨</span><h3 className="font-semibold text-gray-700">衣橱搭配推荐</h3></div>
           <div className="grid grid-cols-2 gap-2">
@@ -105,12 +90,12 @@ export function AvatarCanvas() {
   );
 }
 
-function getStyle(cat: string): import('../../types').StyleLabel[] {
+function gS(c: string): import('../../types').StyleLabel[] {
   const m: Record<string, import('../../types').StyleLabel[]> = {
     'T恤':['minimalist','sporty'],'衬衫':['minimalist','elegant'],'卫衣':['sporty','street'],
     '针织衫':['minimalist','elegant','sweet'],'吊带':['sweet','street'],'牛仔裤':['minimalist','street'],
     '西裤':['elegant','tomboy'],'短裤':['sporty','street'],'A字裙':['sweet','elegant'],
     '连衣裙':['sweet','elegant'],'连体裤':['street','tomboy'],
   };
-  return m[cat] || ['minimalist'];
+  return m[c] || ['minimalist'];
 }

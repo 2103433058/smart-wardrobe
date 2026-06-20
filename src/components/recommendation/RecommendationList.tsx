@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { useWardrobeStore } from '../../stores/wardrobeStore';
 import { useProfileStore } from '../../stores/profileStore';
 import { RecommendationCard } from './RecommendationCard';
@@ -16,12 +16,19 @@ const OCCASIONS: { value: Occasion; label: string }[] = [
 ];
 
 export function RecommendationList() {
-  const { items, loadItems } = useWardrobeStore();
-  const { profile, loadProfile, hasProfile } = useProfileStore();
+  const { items } = useWardrobeStore();
+  const { profile, hasProfile } = useProfileStore();
   const [occasion, setOccasion] = useState<Occasion>('casual');
   const [weights, setWeights] = useState({ body: 0.30, color: 0.25, style: 0.25, occasion: 0.20, dressBonus: 0.05 });
+  const initRef = useRef(false);
 
-  useEffect(() => { loadItems(); loadProfile(); }, [loadItems, loadProfile]);
+  useEffect(() => {
+    if (!initRef.current) {
+      initRef.current = true;
+      useWardrobeStore.getState().loadItems();
+      useProfileStore.getState().loadProfile();
+    }
+  }, []);
 
   const combos = useMemo(() => {
     if (!hasProfile || items.length === 0) return [];

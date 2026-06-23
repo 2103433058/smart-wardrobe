@@ -1,16 +1,14 @@
-import { useState, useCallback, lazy, Suspense } from 'react';
+import { useState, useCallback } from 'react';
 import { CameraCapture } from './CameraCapture';
 import { FileUpload } from './FileUpload';
 import { ResultCard } from './ResultCard';
-
-const AvatarCanvas = lazy(() => import('../avatar/AvatarCanvas').then(m => ({ default: m.AvatarCanvas })));
 import type { RecognitionResult, ClothingAttributes, StyleLabel } from '../../types';
 import { useWardrobeStore } from '../../stores/wardrobeStore';
 import { createThumbnail } from '../../utils/imageUtils';
 import { analyzeColors } from '../../services/colorAnalyzer';
 import { detectPattern } from '../../services/patternDetector';
 
-type InputMode = 'camera' | 'upload' | 'avatar';
+type InputMode = 'camera' | 'upload';
 
 const CATEGORIES = [
   { label: 'T恤', icon: '👕' },
@@ -142,9 +140,8 @@ export function CaptureTab() {
         {([
           ['camera', '📷 拍照'],
           ['upload', '📁 上传'],
-          ['avatar', '🎨 虚拟试衣'],
         ] as const).map(([key, label]) => (
-          <button
+          <button type="button"
             key={key}
             onClick={() => setMode(key)}
             className={`flex-1 py-2 text-sm font-medium rounded-lg transition-colors ${
@@ -159,11 +156,6 @@ export function CaptureTab() {
       {/* Input area */}
       {mode === 'camera' && <CameraCapture onCapture={handleImageCapture} />}
       {mode === 'upload' && <FileUpload onFiles={(urls) => urls.forEach(handleImageCapture)} />}
-      {mode === 'avatar' && (
-                <Suspense fallback={<div className="text-center py-12 text-gray-400"><div className="text-2xl animate-pulse">🎨</div><p>加载中...</p></div>}>
-                  <AvatarCanvas />
-                </Suspense>
-              )}
 
       {/* Category picker after image capture */}
       {pendingImage && (

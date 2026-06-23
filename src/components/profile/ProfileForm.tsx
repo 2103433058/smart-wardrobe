@@ -27,13 +27,18 @@ export function ProfileForm() {
     }
   }, []);
 
+  const [saveErr, setSaveErr] = useState('');
+
   const save = async (p: UserProfile) => {
     try {
+      setSaveErr('');
       await store.setProfile(p);
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
-    } catch {
-      // ignore
+    } catch (e: any) {
+      setSaveErr(e?.message || '保存失败');
+      // Try direct state update as fallback
+      useProfileStore.setState({ profile: p, hasProfile: true });
     }
   };
 
@@ -56,7 +61,10 @@ export function ProfileForm() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold">用户画像</h1>
-        {saved && <span className="text-xs text-green-600 bg-green-50 px-3 py-1 rounded-full">已保存 ✓</span>}
+        <div className="flex items-center gap-2">
+          {saveErr && <span className="text-xs text-red-500">{saveErr}</span>}
+          {saved && <span className="text-xs text-green-600 bg-green-50 px-3 py-1 rounded-full">已保存 ✓</span>}
+        </div>
       </div>
 
       {/* Body section */}
